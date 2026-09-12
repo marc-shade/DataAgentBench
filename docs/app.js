@@ -39,8 +39,43 @@ const state = {
   queries: [],
   selectedDataset: "all",
   agentMatrix: null,
-  dbPreviewCache: {}
+  dbPreviewCache: {},
+  showTunedPrompts: false
 };
+
+function isTunedPrompt(row) {
+  return row.promptGroup === "benchmark-informed";
+}
+
+function getVisibleLeaderboardRows(rows) {
+  const visible = state.showTunedPrompts
+    ? rows
+    : rows.filter((row) => !isTunedPrompt(row));
+  return visible.map((row, index) => ({
+    ...row,
+    displayRank: index + 1
+  }));
+}
+
+function updateLeaderboardFilterNote(allRows, visibleRows) {
+  const note = document.getElementById("leaderboard-filter-note");
+  const hint = document.querySelector(".toggle-hint");
+  const tunedCount = allRows.filter(isTunedPrompt).length;
+  if (state.showTunedPrompts) {
+    hint.textContent = "Included in ranks";
+    note.textContent =
+      `Showing all ${allRows.length} submissions. Tuned-prompt entries ` +
+      `(${tunedCount}) are marked with a gold badge: their up-front prompt is ` +
+      "DAB-specific, built from a close study of DAB's task conventions.";
+    return;
+  }
+  hint.textContent = "Hidden by default";
+  note.textContent =
+    `${tunedCount} tuned-prompt submission${tunedCount === 1 ? " is" : "s are"} ` +
+    `hidden (${visibleRows.length} of ${allRows.length} shown). ` +
+    "Ranks below are among general-purpose prompts only. " +
+    "Turn on the toggle to add them back.";
+}
 
 function formatCompactNumber(value) {
   const fixed = Number(value).toFixed(4);
@@ -155,14 +190,28 @@ function buildAgentMatrix(leaderboards) {
   };
 }
 
-function renderOverallLeaderboard(rows) {
+function renderOverallLeaderboard() {
+  const allRows = state.leaderboards.overallLeaderboard;
+  const rows = getVisibleLeaderboardRows(allRows);
+  updateLeaderboardFilterNote(allRows, rows);
+
   const tbody = document.querySelector("#overall-table tbody");
   tbody.innerHTML = "";
   rows.forEach((row) => {
     const tr = document.createElement("tr");
+    const tuned = isTunedPrompt(row);
+    if (tuned) {
+      tr.classList.add("tuned-row");
+    }
 
-    const rankTd = createElement("td", "num", String(row.rank));
-    const agentTd = createElement("td", "", row.agent);
+    const rankTd = createElement("td", "num", String(row.displayRank));
+    const agentTd = createElement("td", "agent-cell");
+    agentTd.appendChild(document.createTextNode(row.agent));
+    if (tuned) {
+      const badge = createElement("span", "tuned-badge", "Tuned");
+      badge.title = "DAB-specific up-front prompt";
+      agentTd.appendChild(badge);
+    }
     const teamTd = document.createElement("td");
     const teamLink = createElement("a", "", row.team);
     teamLink.href = row.teamUrl;
@@ -193,6 +242,15 @@ function renderOverallLeaderboard(rows) {
     tr.appendChild(dateTd);
     tr.appendChild(prTd);
     tbody.appendChild(tr);
+  });
+}
+
+function setupTunedPromptToggle() {
+  const toggle = document.getElementById("show-tuned");
+  toggle.checked = state.showTunedPrompts;
+  toggle.addEventListener("change", () => {
+    state.showTunedPrompts = toggle.checked;
+    renderOverallLeaderboard();
   });
 }
 
@@ -519,7 +577,8 @@ async function init() {
     state.leaderboards = leaderboards;
     state.queries = queries;
     state.agentMatrix = buildAgentMatrix(leaderboards);
-    renderOverallLeaderboard(leaderboards.overallLeaderboard);
+    setupTunedPromptToggle();
+    renderOverallLeaderboard();
     setupAgentControls();
     renderAgentTable();
     setUpdatedAtText(leaderboards.updatedAt);

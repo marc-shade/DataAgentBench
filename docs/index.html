@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=6" />
+    <link rel="stylesheet" href="./styles.css?v=7" />
   </head>
   <body>
     <header class="page-header">
@@ -112,12 +112,24 @@
 
           <div class="two-col-main">
             <section class="card">
-              <h2>Leaderboard</h2>
+              <div class="leaderboard-head">
+                <h2>Leaderboard</h2>
+                <label class="toggle" for="show-tuned">
+                  <input id="show-tuned" type="checkbox" role="switch"
+                    aria-label="Show tuned prompt submissions" />
+                  <span class="toggle-track" aria-hidden="true"></span>
+                  <span class="toggle-copy">
+                    <span class="toggle-label">Show tuned prompts</span>
+                    <span class="toggle-hint">Hidden by default</span>
+                  </span>
+                </label>
+              </div>
               <p class="muted">
                 <strong>Pass@1</strong> = fraction of queries answered correctly on the first
                 attempt, averaged across <em>n</em> trials per query. The overall score is
                 computed per-dataset first, then averaged across datasets (stratified).
               </p>
+              <p class="muted" id="leaderboard-filter-note"></p>
               <div class="table-wrap">
                 <table id="overall-table">
                   <thead>
@@ -198,6 +210,6 @@
       <p id="updated-at"></p>
     </footer>
 
-    <script src="./app.js?v=6" defer></script>
+    <script src="./app.js?v=7" defer></script>
   </body>
 </html>
