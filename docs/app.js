@@ -39,8 +39,40 @@ const state = {
   queries: [],
   selectedDataset: "all",
   agentMatrix: null,
-  dbPreviewCache: {}
+  dbPreviewCache: {},
+  showTunedPrompts: false
 };
+
+function isTunedPrompt(row) {
+  return row.promptGroup === "benchmark-informed";
+}
+
+function getVisibleLeaderboardRows(rows) {
+  const visible = state.showTunedPrompts
+    ? rows
+    : rows.filter((row) => !isTunedPrompt(row));
+  return visible.map((row, index) => ({
+    ...row,
+    displayRank: index + 1
+  }));
+}
+
+function updateLeaderboardFilterNote(allRows, visibleRows) {
+  const note = document.getElementById("leaderboard-filter-note");
+  const tunedCount = allRows.filter(isTunedPrompt).length;
+  if (state.showTunedPrompts) {
+    note.textContent =
+      `Showing all ${allRows.length} submissions. The ${tunedCount} marked ` +
+      "highly tuned use a DAB-specific up-front prompt, built from a close " +
+      "study of DAB's task conventions.";
+    return;
+  }
+  note.textContent =
+    `${tunedCount} submission${tunedCount === 1 ? "" : "s"} with a highly tuned, ` +
+    `DAB-specific prompt ${tunedCount === 1 ? "is" : "are"} hidden ` +
+    `(${visibleRows.length} of ${allRows.length} shown). ` +
+    "Switch on Show all submissions to add them back.";
+}
 
 function formatCompactNumber(value) {
   const fixed = Number(value).toFixed(4);
@@ -155,15 +187,32 @@ function buildAgentMatrix(leaderboards) {
   };
 }
 
-function renderOverallLeaderboard(rows) {
-  const tbody = document.querySelector("#overall-table tbody");
+function renderOverallLeaderboard() {
+  const allRows = state.leaderboards.overallLeaderboard;
+  const rows = getVisibleLeaderboardRows(allRows);
+  updateLeaderboardFilterNote(allRows, rows);
+
+  const table = document.getElementById("overall-table");
+  table.classList.toggle("hide-tuned-col", !state.showTunedPrompts);
+
+  const tbody = table.querySelector("tbody");
   tbody.innerHTML = "";
   rows.forEach((row) => {
     const tr = document.createElement("tr");
+    const tuned = isTunedPrompt(row);
 
-    const rankTd = createElement("td", "num", String(row.rank));
-    const agentTd = createElement("td", "", row.agent);
-    const teamTd = document.createElement("td");
+    const rankTd = createElement("td", "num", String(row.displayRank));
+    const agentTd = createElement("td", "agent-cell", row.agent);
+    const tunedTd = createElement("td", "tuned-col");
+    if (tuned) {
+      const mark = createElement("span", "tuned-mark", "✓");
+      mark.title = "Highly tuned, DAB-specific prompt";
+      tunedTd.appendChild(mark);
+    } else {
+      tunedTd.textContent = "—";
+      tunedTd.classList.add("muted");
+    }
+    const teamTd = createElement("td", "team-cell");
     const teamLink = createElement("a", "", row.team);
     teamLink.href = row.teamUrl;
     teamLink.target = "_blank";
@@ -187,12 +236,22 @@ function renderOverallLeaderboard(rows) {
 
     tr.appendChild(rankTd);
     tr.appendChild(agentTd);
+    tr.appendChild(tunedTd);
     tr.appendChild(teamTd);
     tr.appendChild(trialsTd);
     tr.appendChild(passTd);
     tr.appendChild(dateTd);
     tr.appendChild(prTd);
     tbody.appendChild(tr);
+  });
+}
+
+function setupTunedPromptToggle() {
+  const toggle = document.getElementById("show-tuned");
+  toggle.checked = state.showTunedPrompts;
+  toggle.addEventListener("change", () => {
+    state.showTunedPrompts = toggle.checked;
+    renderOverallLeaderboard();
   });
 }
 
@@ -519,7 +578,8 @@ async function init() {
     state.leaderboards = leaderboards;
     state.queries = queries;
     state.agentMatrix = buildAgentMatrix(leaderboards);
-    renderOverallLeaderboard(leaderboards.overallLeaderboard);
+    setupTunedPromptToggle();
+    renderOverallLeaderboard();
     setupAgentControls();
     renderAgentTable();
     setUpdatedAtText(leaderboards.updatedAt);

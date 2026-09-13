@@ -1,4 +1,4 @@
-/* DAB styles v5 — 2026-03-21 */
+/* DAB styles v7 — 2026-09-12 */
 /* ── Variables ───────────────────────────────────────── */
 :root {
   --navy: #002145;
@@ -214,6 +214,102 @@ thead th { background: #e0eaf6; color: #19324d; font-weight: 700; }
 tbody tr:nth-child(even) { background: #f6f9fd; }
 tfoot td { font-weight: 700; background: #e8f0fb; border-top: 2px solid var(--border); }
 td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+td.agent-cell { white-space: normal; min-width: 150px; max-width: 280px; }
+td.team-cell { white-space: normal; max-width: 120px; }
+
+/* Tuned-prompt column: only meaningful once tuned rows are in the table. */
+th.tuned-col, td.tuned-col { text-align: center; padding-left: 0.3rem; padding-right: 0.3rem; }
+th.tuned-col { white-space: normal; width: 52px; line-height: 1.15; }
+table.hide-tuned-col .tuned-col { display: none; }
+
+.tuned-mark {
+  display: inline-block;
+  min-width: 1.15rem;
+  padding: 0.02rem 0.2rem;
+  border-radius: 3px;
+  background: #fdf0cd;
+  border: 1px solid #e4b93f;
+  color: #6b4a00;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+/* ── Leaderboard switch ─────────────────────────────── */
+.leaderboard-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.55rem;
+}
+
+.leaderboard-head h2 { margin: 0; }
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.switch:hover .switch-track { background: #9eb4cb; }
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.switch-track {
+  width: 30px;
+  height: 17px;
+  border-radius: 999px;
+  background: #b9cbdf;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.switch-track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 30, 70, 0.3);
+  transition: translate 0.15s;
+}
+
+.switch-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1d3a55;
+  white-space: nowrap;
+}
+
+.switch input:checked + .switch-track { background: var(--navy); }
+.switch input:checked + .switch-track::after { translate: 13px 0; }
+.switch:hover input:checked + .switch-track { background: #003262; }
+
+.switch input:focus-visible + .switch-track {
+  outline: 2px solid #2f72b8;
+  outline-offset: 2px;
+}
 
 .cell-best { color: var(--green); font-weight: 800; background: var(--green-bg) !important; }
 .cell-zero { color: var(--red);   font-weight: 800; background: var(--red-bg)   !important; }
@@ -560,6 +656,9 @@ pre.code-block code {
   .table-controls label { margin-top: 0.15rem; }
   .sel select { min-width: unset; width: 100%; }
   .sel { width: 100%; }
+  .leaderboard-head { align-items: flex-start; }
+  td.agent-cell { min-width: 118px; max-width: 180px; }
+  td.team-cell { max-width: 100px; }
   table { font-size: 0.8rem; }
   th, td { padding: 0.38rem 0.45rem; }
   .hero-actions { justify-content: flex-start; }
