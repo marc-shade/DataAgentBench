@@ -114,14 +114,11 @@
             <section class="card">
               <div class="leaderboard-head">
                 <h2>Leaderboard</h2>
-                <label class="toggle" for="show-tuned">
+                <label class="switch" for="show-tuned">
                   <input id="show-tuned" type="checkbox" role="switch"
-                    aria-label="Show tuned prompt submissions" />
-                  <span class="toggle-track" aria-hidden="true"></span>
-                  <span class="toggle-copy">
-                    <span class="toggle-label">Show tuned prompts</span>
-                    <span class="toggle-hint">Hidden by default</span>
-                  </span>
+                    aria-label="Show all submissions, including highly tuned prompts" />
+                  <span class="switch-track" aria-hidden="true"></span>
+                  <span class="switch-label">Show all submissions</span>
                 </label>
               </div>
               <p class="muted">
@@ -136,6 +133,7 @@
                     <tr>
                       <th>#</th>
                       <th>Agent</th>
+                      <th class="tuned-col" title="The up-front prompt is DAB-specific, built from a close study of DAB's task conventions">Highly tuned</th>
                       <th>Team</th>
                       <th><em>n</em></th>
                       <th>Pass@1</th>
