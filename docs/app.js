@@ -191,7 +191,6 @@ function renderOverallLeaderboard() {
   const allRows = state.leaderboards.overallLeaderboard;
   const rows = getVisibleLeaderboardRows(allRows);
   updateLeaderboardFilterNote(allRows, rows);
-  updateSwitchState();
 
   const table = document.getElementById("overall-table");
   table.classList.toggle("hide-tuned-col", !state.showTunedPrompts);
@@ -254,11 +253,6 @@ function setupTunedPromptToggle() {
     state.showTunedPrompts = toggle.checked;
     renderOverallLeaderboard();
   });
-}
-
-function updateSwitchState() {
-  const toggle = document.getElementById("show-tuned");
-  toggle.closest(".switch").classList.toggle("is-on", state.showTunedPrompts);
 }
 
 function renderMatrixTable(options) {
