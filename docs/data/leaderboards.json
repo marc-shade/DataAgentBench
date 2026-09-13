@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-11",
+  "updatedAt": "2026-09-13",
   "sources": [
     "DEPS_DEV_V1 query 1 re-scored 2026-08-18 by re-running its validate.py under a revised validator (accepting any of the 95 packages tied at fifth place on 57779 stars rather than the single tied package recorded in ground_truth.csv, see issue #86), from the same submission JSONs, with no other query changed",
     "All Pass@1 scores recomputed 2026-06-12 by re-running each query's validate.py under the current validators (including the regenerated PATENTS ground truths), from the submission JSONs in this repository or in the corresponding submission PR branches",
@@ -8,6 +8,18 @@
   "overallLeaderboard": [
     {
       "rank": 1,
+      "agent": "Permute EQ (Claude Opus 5)",
+      "trials": 5,
+      "passAt1": 0.9467,
+      "promptGroup": "benchmark-informed",
+      "team": "Permute",
+      "teamUrl": "https://permute.ai",
+      "prUrl": "https://github.com/ucbepic/DataAgentBench/pull/95",
+      "date": "2026-09-11",
+      "note": "Learned evidence layer plus an independent execution agent. Per query a frozen 'Arbiter1' evidence JSON (column and relation routing, data previews, an execution plan) is supplied as a queryable table, and a fresh Claude Opus 5 agent (max reasoning, 100 steps) answers over the sanctioned stores through DuckDB and a calculator. Uses db_description_withhint.txt hints, delivered in full for all 12 datasets. No web, shell or document-search tool. Trace audit found no external fetches and no reads of ground truth, validators, prior runs or other submissions; DuckDB glob/read_text are unfiltered and were used in some stockmarket trials, but returned only sanctioned parquet stores and one benchmark hints file already present in the prompt. Two fixed prompts were used across a 27/27 split; the second carries three question-scoped rules, two presentational and one, scoped to GITHUB_REPOS q1, governing population selection. Scored on the answer section only: responses also contain contract tables and audits that can name the gold value while the stated answer differs, which inflates full-text scoring from 0.8713 to 0.9133. One bookreview trial was re-scored upward after the answer-section rule was found to truncate before a later 'Matching Books' table whose titles were present in the answer. Full execution traces provided for all 270 trials. Updated in PR #95: GITHUB_REPOS q2 rerun after the query wording was clarified, and full 5-trial reruns of crmarenapro q3/q7/q9 and DEPS_DEV_V1 q1. Those reruns use query-specific prompts (5 prompt variants across the 54 queries); crmarenapro q3/q7/q9 carry a CONDITIONAL EXECUTION RULES block not present in the other 51 queries."
+    },
+    {
+      "rank": 2,
       "agent": "Scout (OceanBase Lab) (GLM-5.2)",
       "trials": 5,
       "passAt1": 0.9062,
@@ -19,7 +31,7 @@
       "note": "Tool-using main agent (GLM-5.2, thinking disabled) with on-demand planner subagents, a deterministic workflow compiler and data kernel over each task's sanctioned stores, LLM-backed extract_fields and classify_aggregate tools, and a network-isolated Python sandbox. Uses db_description_withhint.txt hints. Tuned prompt: a per-query, runtime-generated pre-analysis block (schema facts, measured join overlaps, question-to-column bindings, answer-shape contract) is placed in the system prompt; the opening user message is the benchmark question plus description and hints only. Tuned tools: the harness ships workflow operators built for specific DAB question shapes, e.g. temporal_ema_group_extremum and a compute_ema_and_find_best_year helper (PATENTS EMA queries), periodic_investment_return (stockindex q3), contingency_test (PANCANCER_ATLAS q3), duplicate_content_rank (GITHUB_REPOS q2), schedule_filter (googlelocal q3), state_transition_aggregate and interval_duration_aggregate (crmarenapro q8 and q10), versioned_entity_rank (DEPS_DEV_V1 q1). Trace audit over all 270 trials found no external fetches, no reads of ground truth, validators, prior runs or other submissions, no ground-truth values in any prompt, and every passing answer derived in the trial's own tool outputs. Full execution traces provided for all 270 trials."
     },
     {
-      "rank": 2,
+      "rank": 3,
       "agent": "Camber (Claude Opus 5, high effort)",
       "trials": 5,
       "passAt1": 0.879,
@@ -29,18 +41,6 @@
       "prUrl": "https://github.com/ucbepic/DataAgentBench/pull/92",
       "date": "2026-08-27",
       "note": "Twelve per-dataset Camber Cloud notebook agents, one per DAB dataset, each invoked once per trial as an independent conversation (camber chat --agent @camber-dev.<dataset>), Claude Opus 5 via Amazon Bedrock at high reasoning effort. The agent drives a Jupyter kernel through generate_code/append_code_cell over that dataset's sanctioned stores. No web, shell or document-search tool. Tuned prompt: a per-dataset system prompt embedding db_description.txt verbatim, an author-written schema profile (types, nullability, row counts, observed value sets) obtained by introspecting the sanctioned files, connection instructions, answer-shape guidance and a 'Known Pitfalls' section. The prompts were supplied on request and audited: no verbatim ground truth, and the pitfalls hand the decisive interpretation back to the agent rather than stating it. Hints marked yes per the submission's own declaration, but the audit found no use of db_description_withhint.txt: 0 of 47 hint lines appear in any prompt or in any of the 270 traces, no trace references the hint or description files, and on stockmarket the agent decodes only the status letters present in the data (N, D, H), inconsistently across runs, without the E/G/J/K, listing-exchange or market-category tables the hint file spells out; on stockindex the prompt supplies no volatility formula or up/down-day definition. Query raised with the submitter. Trace audit over all 270 trials found no external fetches, no reads of ground truth, validators, prior runs or other submissions, and no cross-dataset access. Six trials shipped with an empty tool_call_parts and were supplied afterwards from the submitter's observability store; their Bedrock timestamps reconcile with the started_at values published in the original bundle, and all 270 answers are byte-identical to the original submission. Scored on the full answer text. Answer-section scoring would give 0.8534 (0.8492 after a hand correction to GITHUB_REPOS q4), since responses append a method/caveat section that sometimes names the gold value while the stated answer differs."
-    },
-    {
-      "rank": 3,
-      "agent": "Permute EQ (Claude Opus 5)",
-      "trials": 5,
-      "passAt1": 0.8713,
-      "promptGroup": "benchmark-informed",
-      "team": "Permute",
-      "teamUrl": "https://permute.ai",
-      "prUrl": "https://github.com/ucbepic/DataAgentBench/pull/88",
-      "date": "2026-08-18",
-      "note": "Learned evidence layer plus an independent execution agent. Per query a frozen 'Arbiter1' evidence JSON (column and relation routing, data previews, an execution plan) is supplied as a queryable table, and a fresh Claude Opus 5 agent (max reasoning, 100 steps) answers over the sanctioned stores through DuckDB and a calculator. Uses db_description_withhint.txt hints, delivered in full for all 12 datasets. No web, shell or document-search tool. Trace audit found no external fetches and no reads of ground truth, validators, prior runs or other submissions; DuckDB glob/read_text are unfiltered and were used in some stockmarket trials, but returned only sanctioned parquet stores and one benchmark hints file already present in the prompt. Two fixed prompts were used across a 27/27 split; the second carries three question-scoped rules, two presentational and one, scoped to GITHUB_REPOS q1, governing population selection. Scored on the answer section only: responses also contain contract tables and audits that can name the gold value while the stated answer differs, which inflates full-text scoring from 0.8713 to 0.9133. One bookreview trial was re-scored upward after the answer-section rule was found to truncate before a later 'Matching Books' table whose titles were present in the answer. Full execution traces provided for all 270 trials."
     },
     {
       "rank": 4,

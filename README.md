@@ -33,9 +33,9 @@ Unlike prior SQL-only or single-database benchmarks, DAB stresses agents under *
 
 | <sub>Rank</sub> | <sub>Model</sub> | <sub>Tuned prompt</sub> | <sub>Pass@1 ¹</sub> | <sub>Trials</sub> | <sub>Hints</sub> | <sub>Date</sub> | <sub>Submission</sub> |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| <sub>1</sub> | <sub>Scout (OceanBase Lab) (GLM-5.2)</sub> | <sub>✓</sub> | <sub>0.9062</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-09-08</sub> | <sub>[#96](https://github.com/ucbepic/DataAgentBench/pull/96)</sub> |
-| <sub>2</sub> | <sub>Camber (Claude-Opus-5, high effort)</sub> | <sub>✓</sub> | <sub>0.8790</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-08-27</sub> | <sub>[#92](https://github.com/ucbepic/DataAgentBench/pull/92)</sub> |
-| <sub>3</sub> | <sub>Permute EQ (Claude-Opus-5)</sub> | <sub>✓</sub> | <sub>0.8713</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-08-18</sub> | <sub>[#88](https://github.com/ucbepic/DataAgentBench/pull/88)</sub> |
+| <sub>1</sub> | <sub>Permute EQ (Claude-Opus-5) ⁷</sub> | <sub>✓</sub> | <sub>0.9467</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-09-11</sub> | <sub>[#95](https://github.com/ucbepic/DataAgentBench/pull/95)</sub> |
+| <sub>2</sub> | <sub>Scout (OceanBase Lab) (GLM-5.2)</sub> | <sub>✓</sub> | <sub>0.9062</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-09-08</sub> | <sub>[#96](https://github.com/ucbepic/DataAgentBench/pull/96)</sub> |
+| <sub>3</sub> | <sub>Camber (Claude-Opus-5, high effort)</sub> | <sub>✓</sub> | <sub>0.8790</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-08-27</sub> | <sub>[#92](https://github.com/ucbepic/DataAgentBench/pull/92)</sub> |
 | <sub>4</sub> | <sub>Sentinel (Actioneer) (Fable-5 + Claude-Opus-4.7)</sub> | <sub>✓</sub> | <sub>0.8617</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-07-20</sub> | <sub>[#73](https://github.com/ucbepic/DataAgentBench/pull/73)</sub> |
 | <sub>5</sub> | <sub>Permute Core (Claude-Opus-5)</sub> | <sub>✓</sub> | <sub>0.8413</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-08-05</sub> | <sub>[#85](https://github.com/ucbepic/DataAgentBench/pull/85)</sub> |
 | <sub>6</sub> | <sub>Alkera (Fable-5 + Claude-Opus-4.8)</sub> | <sub>✓</sub> | <sub>0.8411</sub> | <sub>5</sub> | <sub>✓</sub> | <sub>2026-07-14</sub> | <sub>[#70](https://github.com/ucbepic/DataAgentBench/pull/70)</sub> |
@@ -82,6 +82,8 @@ Unlike prior SQL-only or single-database benchmarks, DAB stresses agents under *
 <sub>**⁵** fabric-rlm ([#76](https://github.com/ucbepic/DataAgentBench/pull/76)) had 8 agnews trials counted as non-passes: 4 loaded external gold labels, and 4 submitted the gold value with no derivation in the supplied traces.</sub>
 
 <sub>**⁶** LabRat ([#84](https://github.com/ucbepic/DataAgentBench/pull/84)) is missing 2 of 270 trials (agnews query 4, infra timeouts), counted as non-passes; excluding them gives 0.8102.</sub>
+
+<sub>**⁷** Permute EQ ([#95](https://github.com/ucbepic/DataAgentBench/pull/95)) uses query-specific prompts: 5 prompt variants across the 54 queries, with the per-query assignment listed in the PR.</sub>
 
 
 ### How to Submit to the Leaderboard
