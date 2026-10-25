@@ -1,8 +1,8 @@
-# Phoenix-CLI tuned v3: every note in the prompt
+# Phoenix-CLI tuned v4: every note in the prompt
 
 Each run's system prompt is the base prompt of our untuned entry #114, then `common.md`, then its dataset's note (`<dataset>.md`) if one exists, then its query's note (`<dataset>/queryN.md`) if one exists, each separated by a blank line. A query gets no note written for any other query. Every run's `isolation.json` lists the files it received with their sha256 (checked: all 270 runs received exactly the files below for their query, with these hashes).
 
-These are the v3 notes, used for all 270 runs. Earlier versions, and the withdrawn v3 agnews q2 candidate, are in `runner_tools.tar.gz` in the release.
+v4 reran only agnews and DEPS_DEV_V1 (30 runs) with the v4 notes; the other 10 datasets keep their v3 runs and v3 notes. Only two files differ from v3: `DEPS_DEV_V1/query1.md` (one rule added) and `agnews/query4.md` (new). `common.md` is unchanged. Earlier versions are in `runner_tools.tar.gz` in the release.
 
 ## `common.md` (every query), sha256 `146597048ce0e805690a5759f4705095177723cfd569f7441eed6aad427dad3d`
 
@@ -61,6 +61,18 @@ This question covers thousands of articles. Choose a method that finishes inside
 time budget; an answer computed on all qualifying articles is required.
 ```
 
+## `agnews/query4.md` (agnews q4) (v4, new), sha256 `519c93b14be67f3594d146b7082eb08492984173b25a9c0a9c342e1b317a2916`
+
+```text
+CATEGORY LABELS (this dataset stores no category; you assign one per article)
+- Every label must carry its article_id and be joined back to the article by that id, never
+  by position in a batch or list. When subagents or batches label articles, have each return
+  (article_id, label) pairs, then check that the joined set has exactly one label per
+  article in scope before counting.
+- The answer is a comparison of counts across regions: when the top two counts are close,
+  recount from the id-joined labels, not from a re-run of the labeling.
+```
+
 ## `crmarenapro/query2.md` (crmarenapro q2), sha256 `4ce53fe077ed0ccab21df5a85bec06d843ea144d6f19f8b9bf5642635ca36d2d`
 
 ```text
@@ -113,7 +125,7 @@ time budget; an answer computed on all qualifying articles is required.
 - Clean ids on both sides of every join (trim '#' and blanks) and return the cleaned id.
 ```
 
-## `DEPS_DEV_V1/query1.md` (DEPS_DEV_V1 q1), sha256 `6212eb6ce8813c956fdbb96008a3f9e5e7f3846aa9c386cbd1b2b79b04417715`
+## `DEPS_DEV_V1/query1.md` (DEPS_DEV_V1 q1) (v4, changed), sha256 `e1504a180ab29f64550d66336587f82b1480051d195b0f1975d367cd0a43d3ce`
 
 ```text
 - A package name can contain ">" (a nested dependency path). Each distinct stored name
@@ -124,6 +136,10 @@ time budget; an answer computed on all qualifying articles is required.
   its IsRelease row with the highest VersionInfo Ordinal.
 - Fetch every candidate row: when paging, ORDER BY every selected column. Rank on the
   complete set; a package missing from a partial fetch is not evidence it is unmapped.
+- "Top 5" means five rows. Rank by rows, not by distinct values: if more packages tie at a
+  value than ranks remain, fill the remaining ranks from that tied group; never skip past a
+  tie to a lower value. Compute the ranking in SQL over the complete set (ORDER BY stars
+  DESC), not over paged rows.
 ```
 
 ## `GITHUB_REPOS/query1.md` (GITHUB_REPOS q1), sha256 `face8387edbb12552c58c1cddbee3f6d84f2b1a5511b4a3afb39ad9d0a952a6f`

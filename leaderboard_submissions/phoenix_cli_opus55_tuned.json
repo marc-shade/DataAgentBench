@@ -3,31 +3,31 @@
   "dataset": "DEPS_DEV_V1",
   "query": "1",
   "run": "0",
-  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94931 stars, tied); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94931 stars, tied); @dylanvann/svelte 3.25.4 (73499 stars); @dumc11/tailwindcss 0.4.0 (73464 stars); @dollarshaveclub/cli>1.0.0>lodash 4.17.4 (57779 stars, tied with other lodash packages)"
+  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94931 stars, tied); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94931 stars, tied); @dylanvann/svelte 3.25.4 (73499 stars); @dumc11/tailwindcss 0.4.0 (73464 stars); @dollarshaveclub/cli>2.2.2>lodash 4.17.11 (57779 stars, tied with other lodash-mapped packages)"
  },
  {
   "dataset": "DEPS_DEV_V1",
   "query": "1",
   "run": "1",
-  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94931 stars, tied); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94931 stars, tied); @dylanvann/svelte 3.25.4 (73499 stars); @dumc11/tailwindcss 0.4.0 (73464 stars); @dreampie/semantic-ui 2.2.11 (51069 stars)"
+  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94931 stars, tied); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94931 stars, tied); @dylanvann/svelte 3.25.4 (73499 stars); @dumc11/tailwindcss 0.4.0 (73464 stars); @dollarshaveclub/cli>1.0.0>lodash 4.17.4 (57779 stars, tied with other lodash/lodash packages)"
  },
  {
   "dataset": "DEPS_DEV_V1",
   "query": "1",
   "run": "2",
-  "answer": "@dmrvos/infrajs>0.0.5>typescript (2.6.2, 94931 stars); @dmrvos/infrajs>0.0.6>typescript (2.6.2, 94931 stars, tied); @dylanvann/svelte (3.25.4, 73499 stars); @dumc11/tailwindcss (0.4.0, 73464 stars); @dollarshaveclub/cli>1.0.0>lodash (4.17.4, 57779 stars, tied with other lodash packages)"
+  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94931 stars, tied); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94931 stars, tied); @dylanvann/svelte 3.25.4 (73499 stars); @dumc11/tailwindcss 0.4.0 (73464 stars); @dollarshaveclub/cli>2.2.2>lodash 4.17.11 (57779 stars, tied with other lodash-mapped packages)"
  },
  {
   "dataset": "DEPS_DEV_V1",
   "query": "1",
   "run": "3",
-  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94931 stars, tied); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94931 stars, tied); @dylanvann/svelte 3.25.4 (73499 stars); @dumc11/tailwindcss 0.4.0 (73464 stars); @dollarshaveclub/cli>1.0.0>lodash 4.17.4 (57779 stars, tied with 94 other lodash-mapped packages)"
+  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94931 stars); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94931 stars, tied); @dylanvann/svelte 3.25.4 (73499 stars); @dumc11/tailwindcss 0.4.0 (73464 stars); @dollarshaveclub/cli>1.0.0>lodash 4.17.4 (57779 stars, tied with 94 other lodash packages)"
  },
  {
   "dataset": "DEPS_DEV_V1",
   "query": "1",
   "run": "4",
-  "answer": "@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94,931 stars, tied for 1st); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94,931 stars, tied for 1st); @dylanvann/svelte 3.25.4 (73,499 stars); @dumc11/tailwindcss 0.4.0 (73,464 stars); @dreampie/semantic-ui 2.2.11 (51,069 stars)"
+  "answer": "@dmrvos/infrajs>0.0.5>typescript (2.6.2, 94931 stars); @dmrvos/infrajs>0.0.6>typescript (2.6.2, 94931 stars, tied); @dylanvann/svelte (3.25.4, 73499 stars); @dumc11/tailwindcss (0.4.0, 73464 stars); @dollarshaveclub/cli>1.0.0>lodash (4.17.4, 57779 stars, tied with other lodash/lodash packages)"
  },
  {
   "dataset": "DEPS_DEV_V1",
@@ -51,7 +51,7 @@
   "dataset": "DEPS_DEV_V1",
   "query": "2",
   "run": "3",
-  "answer": "mui-org/material-ui (30522 forks), moment/moment (7201 forks), semantic-org/semantic-ui (4955 forks), react-native-elements/react-native-elements (4623 forks), sveltejs/svelte (4091 forks)"
+  "answer": "mui-org/material-ui (30522 forks), semantic-org/semantic-ui (4955 forks), react-native-elements/react-native-elements (4623 forks), sveltejs/svelte (4091 forks), tailwindcss/tailwindcss (3848 forks)"
  },
  {
   "dataset": "DEPS_DEV_V1",
@@ -393,61 +393,61 @@
   "dataset": "agnews",
   "query": "2",
   "run": "0",
-  "answer": "14/111 \u2248 0.126 (12.6%)"
- },
- {
-  "dataset": "agnews",
-  "query": "2",
-  "run": "1",
   "answer": "15/111 \u2248 0.135"
  },
  {
   "dataset": "agnews",
   "query": "2",
+  "run": "1",
+  "answer": "16/111 \u2248 0.144"
+ },
+ {
+  "dataset": "agnews",
+  "query": "2",
   "run": "2",
-  "answer": "14/111 \u2248 0.126 (12.6%)"
+  "answer": "14/111 \u2248 0.126"
  },
  {
   "dataset": "agnews",
   "query": "2",
   "run": "3",
-  "answer": "14/111 \u2248 0.126 (12.6%)"
+  "answer": "15/111 \u2248 0.135 (13.5%)"
  },
  {
   "dataset": "agnews",
   "query": "2",
   "run": "4",
-  "answer": "14/111 \u2248 0.126 (12.6%)"
+  "answer": "15/111 \u2248 0.135"
  },
  {
   "dataset": "agnews",
   "query": "3",
   "run": "0",
-  "answer": "\u2248365 business articles per year"
+  "answer": "\u2248336 business articles per year (about 3,693 over 2010\u20132020 \u00f7 11 years \u2248 335.7)"
  },
  {
   "dataset": "agnews",
   "query": "3",
   "run": "1",
-  "answer": "\u2248295 business articles per year (\u22483,240 total over 2010\u20132020)"
+  "answer": "\u2248343 business articles per year"
  },
  {
   "dataset": "agnews",
   "query": "3",
   "run": "2",
-  "answer": "343.4"
+  "answer": "340"
  },
  {
   "dataset": "agnews",
   "query": "3",
   "run": "3",
-  "answer": "365.27"
+  "answer": "\u2248347.8 business articles per year (3,826 total over 11 years)"
  },
  {
   "dataset": "agnews",
   "query": "3",
   "run": "4",
-  "answer": "\u2248367.9 business articles per year (4,047 articles over 11 years)"
+  "answer": "\u2248344 business articles per year (about 3,790 in total over 2010\u20132020)"
  },
  {
   "dataset": "agnews",
@@ -459,25 +459,25 @@
   "dataset": "agnews",
   "query": "4",
   "run": "1",
-  "answer": "Africa"
- },
- {
-  "dataset": "agnews",
-  "query": "4",
-  "run": "2",
-  "answer": "Africa"
- },
- {
-  "dataset": "agnews",
-  "query": "4",
-  "run": "3",
-  "answer": "Africa"
- },
- {
-  "dataset": "agnews",
-  "query": "4",
-  "run": "4",
   "answer": "North America"
+ },
+ {
+  "dataset": "agnews",
+  "query": "4",
+  "run": "2",
+  "answer": "Africa"
+ },
+ {
+  "dataset": "agnews",
+  "query": "4",
+  "run": "3",
+  "answer": "North America"
+ },
+ {
+  "dataset": "agnews",
+  "query": "4",
+  "run": "4",
+  "answer": "Africa"
  },
  {
   "dataset": "bookreview",
