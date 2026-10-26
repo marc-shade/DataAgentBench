@@ -1,8 +1,8 @@
-# Phoenix-CLI tuned v4: every note in the prompt
+# Phoenix-CLI tuned v5: every note in the prompt
 
 Each run's system prompt is the base prompt of our untuned entry #114, then `common.md`, then its dataset's note (`<dataset>.md`) if one exists, then its query's note (`<dataset>/queryN.md`) if one exists, each separated by a blank line. A query gets no note written for any other query. Every run's `isolation.json` lists the files it received with their sha256 (checked: all 270 runs received exactly the files below for their query, with these hashes).
 
-v4 reran only agnews and DEPS_DEV_V1 (30 runs) with the v4 notes; the other 10 datasets keep their v3 runs and v3 notes. Only two files differ from v3: `DEPS_DEV_V1/query1.md` (one rule added) and `agnews/query4.md` (new). `common.md` is unchanged. Earlier versions are in `runner_tools.tar.gz` in the release.
+v5 = v4 plus one rule added to `agnews/query4.md` (label in this session, no subagents or Workflow), with agnews q4 rerun (5 runs). agnews q1-q3 and DEPS_DEV_V1 keep their v4 runs (v4 notes, identical to v5 for those queries); the other 10 datasets keep their v3 runs and v3 notes. Files that differ from v3: `DEPS_DEV_V1/query1.md` (one rule added in v4) and `agnews/query4.md` (new in v4, one rule added in v5). `common.md` is unchanged. Earlier versions are in `runner_tools.tar.gz` in the release.
 
 ## `common.md` (every query), sha256 `146597048ce0e805690a5759f4705095177723cfd569f7441eed6aad427dad3d`
 
@@ -61,7 +61,7 @@ This question covers thousands of articles. Choose a method that finishes inside
 time budget; an answer computed on all qualifying articles is required.
 ```
 
-## `agnews/query4.md` (agnews q4) (v4, new), sha256 `519c93b14be67f3594d146b7082eb08492984173b25a9c0a9c342e1b317a2916`
+## `agnews/query4.md` (agnews q4) (v4 new, v5 changed), sha256 `7829c63f99e8248cfefc049cc2294c649ebc1c5b4059d6afe5e7fb3031ac397e`
 
 ```text
 CATEGORY LABELS (this dataset stores no category; you assign one per article)
@@ -71,6 +71,8 @@ CATEGORY LABELS (this dataset stores no category; you assign one per article)
   article in scope before counting.
 - The answer is a comparison of counts across regions: when the top two counts are close,
   recount from the id-joined labels, not from a re-run of the labeling.
+- Do all labelling in this session yourself. Do not delegate labelling to subagents (Agent)
+  or to Workflow; one context that has read every article in scope labels them all.
 ```
 
 ## `crmarenapro/query2.md` (crmarenapro q2), sha256 `4ce53fe077ed0ccab21df5a85bec06d843ea144d6f19f8b9bf5642635ca36d2d`

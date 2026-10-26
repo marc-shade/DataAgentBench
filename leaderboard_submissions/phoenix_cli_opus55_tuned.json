@@ -453,13 +453,13 @@
   "dataset": "agnews",
   "query": "4",
   "run": "0",
-  "answer": "Africa"
+  "answer": "North America"
  },
  {
   "dataset": "agnews",
   "query": "4",
   "run": "1",
-  "answer": "North America"
+  "answer": "Africa"
  },
  {
   "dataset": "agnews",
@@ -471,7 +471,7 @@
   "dataset": "agnews",
   "query": "4",
   "run": "3",
-  "answer": "North America"
+  "answer": "Africa"
  },
  {
   "dataset": "agnews",
